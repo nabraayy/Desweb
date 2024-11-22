@@ -1,1 +1,0 @@
-<p style="background: green">@copiadadenayara</p>

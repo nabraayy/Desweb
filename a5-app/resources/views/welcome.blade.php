@@ -6,6 +6,8 @@
     <a href="/login">Login</a>
       
 @endauth
+
+
 </div>
 @can('upload',App\Models\Fichero::class)
 <form method="POST" action="/upload" enctype="multipart/form-data">
