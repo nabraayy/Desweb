@@ -13,11 +13,12 @@
                 @else 
                 <li><a href="/register">Register</a></li>
                 <li><a href="/login">Login</a></li>
+                
                  @endauth
-        </nav>
-        <nav>
-            <ul>
-                <ol><a href="/logout">Logout</a></li>
+        
+            
+                <ol><a href="/logout">Logout</a></ol>
+            </ul> 
         </nav>
 
     </header>
@@ -30,6 +31,7 @@
     @endcan    
      <table>
         <tr>
+            
             <th>Name</th>
             <th>Size</th>
             <th>Owner</th>
@@ -38,15 +40,17 @@
         </tr>
         @foreach ($files as $f)
         <tr>
-            <td>
-                @can('delete',$f)
-                <a href="/delete/{{$f->id}}">Delete</a></td>
-                @endcan
+            
             <td><a href="/download/{{$f->id}}">{{$f->name}}</td>
             <td>{{$f->size()}}</td>
             <td>{{$f->user->name}}</td>
             <td>{{$f->create_at}}</td>
             <td>{{$f->update_at}}</td>
+            <td>
+                @can('delete',$f)
+                    <a href="/delete/{{$f->id}}">Delete</a>
+                @endcan
+            </td>
         </tr>    
             
         @endforeach

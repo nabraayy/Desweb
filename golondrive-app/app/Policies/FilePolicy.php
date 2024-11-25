@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\File;
 use App\Models\Files;
 use App\Models\User;
 
@@ -15,9 +16,9 @@ class FilePolicy
         //
     }
     public function upload(User $user){
-        return $user->id ===1;
+        return $user->all();
     }
-    public function delete(User $user, Files $f){
-        return $user->id === $f-> user_id;
+    public function delete(User $user, File $f){
+        return $user->id === $f->user_id;
     }
 }

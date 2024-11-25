@@ -106,10 +106,23 @@
 <body>
     <div class="form-container">
         <h1>Crear Cuenta</h1>
-        <form action="/registrar" method="POST">
+
+        @if ($errors->any())
+            <div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        
+        <form action="/register" method="POST">
+            @csrf
             <div class="form-group">
-                <label for="username">Nombre de Usuario</label>
-                <input type="text" id="username" name="username" placeholder="Ingresa tu nombre" required>
+                <label for="name">Nombre de Usuario</label>
+                <input type="text" id="name" name="name" placeholder="Ingresa tu nombre" required>
             </div>
             <div class="form-group">
                 <label for="email">Correo Electrónico</label>
@@ -120,8 +133,8 @@
                 <input type="password" id="password" name="password" placeholder="Crea una contraseña" required>
             </div>
             <div class="form-group">
-                <label for="confirm-password">Confirmar Contraseña</label>
-                <input type="password" id="confirm-password" name="confirm_password" placeholder="Repite tu contraseña" required>
+                <label for="password_confirmation">Confirmar Contraseña</label>
+                <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Repite tu contraseña" required>
             </div>
             <button type="submit">Registrarse</button>
         </form>

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class Files extends Model
+class File extends Model
 {
     public function size(){
         return Storage::size($this->path);
