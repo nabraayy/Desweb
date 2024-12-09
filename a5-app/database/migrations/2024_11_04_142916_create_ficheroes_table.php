@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ficheroes', function (Blueprint $table) {
+        Schema::create('ficheros', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('path');

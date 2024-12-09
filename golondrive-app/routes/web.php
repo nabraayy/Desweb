@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Models\File as ModelsFile;
 use App\Models\File;
 use App\Models\User;
@@ -26,21 +27,23 @@ Route::get('/index', function(){
 Route::post('/upload', function(Request $request)
 {      //creacion de un nuevo objeto modelo
     $file= new File();
-    //gestionamos el archivo recibido, accedemos al archivo enviado en el formulario con el nombre indicado, con el metodo store guardamos en el amacen. este metodo devuleve la ruta relativa del archivo almacenado
+    
     $file->path=$request->file('uploaded_file')->store();
     
     $file->name=$request->file('uploaded_file')->getClientOriginalName();
     $file->user_id=Auth::user()->id;
-    //guardamos en la base de datos
+    
     $file->save();
-    //lo redirigimos a la pagina principal
+    
     return redirect('/');
    
-});
+})->can('upload',File::class);
 
-Route::post('/dowload/{a}', function(File $a){
-    return Storage::download($a->path,$a->name);
-})->name("nayara");
+Route::get('/dowload/{a}', function(File $a){
+ 
+   return Storage::download($a->path,$a->name);
+
+})->name('download');
 
 Route::get('/login', function(){
     return view('login');
@@ -92,4 +95,13 @@ Route::get('logout',function(Request $request){
     $request->session()->invalidate();
     $request->session()->regenerateToken();
     return redirect('/');
+});
+Route::get('/share',function(Request $request){
+    $request->validate(['file_ids' => 'required']);
+    return view('share')->with('file',File::find(array_keys($request->file_ids)))
+    ->with('users',User::all());
+});
+Route::middleware(['auth'])->group(function () {
+    Route::post('/upload', [FileController::class, 'upload'])->name('file.upload');
+    Route::get('/download/{id}', [FileController::class, 'download'])->name('file.download');
 });
