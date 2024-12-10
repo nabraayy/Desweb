@@ -12,7 +12,7 @@ class FilePolicy
      * Create a new policy instance.
      */
     public function upload(User $user){
-        return $user->all();
+        return true;
     }
     public function delete(User $user, File $f){
         return $user->id === $f->user_id;

@@ -24,20 +24,21 @@ Route::get('/index', function(){
    });
 
 // esta ruta es para la introducción de archivos a la pagina web,
-Route::post('/upload', function(Request $request)
-{      //creacion de un nuevo objeto modelo
-    $file= new File();
+   Route::post('/upload', function(Request $request)
+    {      //creacion de un nuevo objeto modelo
+     $file= new File();
     
-    $file->path=$request->file('uploaded_file')->store();
+     $file->path=$request->file('uploaded_file')->store();
     
-    $file->name=$request->file('uploaded_file')->getClientOriginalName();
-    $file->user_id=Auth::user()->id;
+     $file->name=$request->file('uploaded_file')->getClientOriginalName();
+     $file->user_id=Auth::user()->id;
     
-    $file->save();
+     $file->save();
     
-    return redirect('/');
+     return redirect('/');
    
-})->can('upload',File::class);
+
+    })->can('upload',File::class);
 
 Route::get('/dowload/{a}', function(File $a){
  
